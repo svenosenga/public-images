@@ -37,11 +37,9 @@ spec:
         app: fig-patcher
     spec:
       restartPolicy: OnFailure
-      serviceAccountName: fig-patcher
-      securityContext: 
-        runAsNonRoot: false
-        seccompProfile:
-          type: RuntimeDefault
+      serviceAccountName: fig-patcher  
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
       terminationGracePeriodSeconds: 400
       dnsPolicy: ClusterFirst
       tolerations:
@@ -63,11 +61,6 @@ spec:
             - name: bootstrap-info
               readOnly: true
               mountPath: /tmp/
-          securityContext: 
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-              - ALL
           resources:
             requests:
               cpu: 10m
