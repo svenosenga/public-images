@@ -62,7 +62,7 @@ spec:
           volumeMounts:
             - name: bootstrap-info
               readOnly: true
-              mountPath: /root
+              mountPath: /tmp/
           securityContext: 
             allowPrivilegeEscalation: false
             capabilities:
@@ -76,4 +76,5 @@ spec:
             - /bin/bash
             - -c
             - |
+                cp /tmp/user_config.conf /root/user_config.conf
                 /root/omnicluster.sh
