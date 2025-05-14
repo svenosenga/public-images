@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fig-patcher
+  namespace: kube-system
+  labels:
+    app: fig-patcher
+---
+# Source: kubevirt-plugin/templates/patcher-clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fig-patcher
+  namespace: kube-system
+  labels:
+    app: fig-patcher
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+---
+# Source: kubevirt-plugin/templates/patcher-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: fig-patcher
+  namespace: kube-system
+  labels:
+    app: fig-patcher
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: fig-patcher
+subjects:
+  - kind: ServiceAccount
+    name: fig-patcher
+    namespace: kube-system
+---
+# Source: kubevirt-plugin/templates/patch-consoles-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fig-patcher
+  namespace: kube-system
+  labels:
+    app: fig-patcher
+spec:
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        app: kubevirt-plugin
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: fig-patcher
+      securityContext: 
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 400
+      dnsPolicy: ClusterFirst
+      volumes:
+          - name: nginx-conf
+            secret:
+              name: monitoring-plugin
+              defaultMode: 420
+      containers:
+        - name: fig-patcher
+          image: ghcr.io/fairbanks-nl/int-mis-tooling/ose-tools-rhel:4.10
+          volumeMounts:
+            - name: nginx-conf
+              readOnly: true
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+          securityContext: 
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          command:
+            - /bin/bash
+            - -c
+            - |
+                /root/omnicluster.sh
