@@ -739,8 +739,6 @@ spec:
         volumeMounts:
         # Common mounts
         # for the iptables wrapper
-        - mountPath: /scripts
-          name: iptables-wrapper-volume
         - mountPath: /host
           name: host-slash
         - mountPath: /var/run/dbus/
@@ -1025,13 +1023,6 @@ spec:
       - name: host-var-run-dbus
         hostPath:
           path: /run/dbus
-      - name: iptables-wrapper-volume
-        configMap:
-          name: iptables-wrapper
-          defaultMode: 0777
-          items:
-          - key: iptables-wrapper-installer.sh
-            path: iptables-wrapper-installer.sh
       - name: host-kubelet
         hostPath:
           path: /var/lib/kubelet
