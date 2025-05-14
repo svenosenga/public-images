@@ -994,12 +994,6 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: null
-  storedVersions: null
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -1976,12 +1970,6 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: null
-  storedVersions: null
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -3085,7 +3073,6 @@ spec:
                   name: multi-networkpolicy-custom-v4-rules
               - configMap:
                   name: multi-networkpolicy-custom-v6-rules
----
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -4230,7 +4217,6 @@ spec:
                                 description: |-
                                   namespaceSelector selects namespaces using cluster-scoped labels. This field follows
                                   standard label selector semantics; if present but empty, it selects all namespaces.
-
                                   If podSelector is also set, then the NetworkQoS as a whole selects
                                   the pods matching podSelector in the namespaces selected by namespaceSelector.
                                   Otherwise it selects all pods in the namespaces selected by namespaceSelector.
@@ -4283,7 +4269,6 @@ spec:
                                 description: |-
                                   podSelector is a label selector which selects pods. This field follows standard label
                                   selector semantics; if present but empty, it selects all pods.
-
                                   If namespaceSelector is also set, then the NetworkQoS as a whole selects
                                   the pods matching podSelector in the Namespaces selected by NamespaceSelector.
                                   Otherwise it selects the pods matching podSelector in the NetworkQoS's own namespace.
@@ -5497,7 +5482,6 @@ spec:
     storage: true
     subresources:
       status: {}
----
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
