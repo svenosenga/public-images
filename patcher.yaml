@@ -48,11 +48,9 @@ spec:
           - effect: NoSchedule
             key: node-role.kubernetes.io/control-plane
             operator: Exists
-            tolerationSeconds: 300
           - effect: NoSchedule
             key: node.kubernetes.io/not-ready
             operator: Exists
-            tolerationSeconds: 300
       volumes:
           - name: bootstrap-info
             secret:
