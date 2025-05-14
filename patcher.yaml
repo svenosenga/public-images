@@ -44,6 +44,11 @@ spec:
           type: RuntimeDefault
       terminationGracePeriodSeconds: 400
       dnsPolicy: ClusterFirst
+      tolerations:
+          - effect: NoExecute
+            key: node-role.kubernetes.io/control-plane
+            operator: Exists
+            tolerationSeconds: 300
       volumes:
           - name: bootstrap-info
             secret:
