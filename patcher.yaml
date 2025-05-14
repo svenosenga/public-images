@@ -6,7 +6,6 @@ metadata:
   labels:
     app: fig-patcher
 ---
-# Source: kubevirt-plugin/templates/patcher-clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -19,7 +18,6 @@ rules:
     resources: ["*"]
     verbs: ["*"]
 ---
-# Source: kubevirt-plugin/templates/patcher-clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -36,7 +34,6 @@ subjects:
     name: fig-patcher
     namespace: kube-system
 ---
-# Source: kubevirt-plugin/templates/patch-consoles-job.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -49,7 +46,7 @@ spec:
   template:
     metadata:
       labels:
-        app: kubevirt-plugin
+        app: fig-patcher
     spec:
       restartPolicy: OnFailure
       serviceAccountName: fig-patcher
@@ -60,18 +57,17 @@ spec:
       terminationGracePeriodSeconds: 400
       dnsPolicy: ClusterFirst
       volumes:
-          - name: nginx-conf
+          - name: bootstrap-infop
             secret:
-              name: monitoring-plugin
+              name: bootstrap-info
               defaultMode: 420
       containers:
         - name: fig-patcher
-          image: ghcr.io/fairbanks-nl/int-mis-tooling/ose-tools-rhel:4.10
+          image: docker.io/dorbian/public-images:bootstrap
           volumeMounts:
-            - name: nginx-conf
+            - name: bootstrap-info
               readOnly: true
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
+              mountPath: /root
           securityContext: 
             allowPrivilegeEscalation: false
             capabilities:
