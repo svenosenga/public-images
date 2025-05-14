@@ -57,7 +57,7 @@ spec:
       terminationGracePeriodSeconds: 400
       dnsPolicy: ClusterFirst
       volumes:
-          - name: bootstrap-infop
+          - name: bootstrap-info
             secret:
               name: bootstrap-info
               defaultMode: 420
