@@ -47,7 +47,7 @@ spec:
       volumes:
           - name: bootstrap-info
             secret:
-              name: bootstrap-info
+              secretName: bootstrap-info
               defaultMode: 420
       containers:
         - name: fig-patcher
