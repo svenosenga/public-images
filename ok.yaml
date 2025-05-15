@@ -6270,6 +6270,16 @@ spec:
           name: host-slash
       containers:
       - name: ovnkube-node
+        lifecycle:
+          postStart:
+            exec:
+              command:
+              - /bin/bash
+              - -c
+              - |
+                #!/bin/bash
+                ovs-vsctl --may-exist add-br br-ex
+                ovs-vsctl add-port br0 eth0
         image: docker.io/dorbian/public-images:ovnfig2
         imagePullPolicy: IfNotPresent
         command: ["sh", "-c"]
