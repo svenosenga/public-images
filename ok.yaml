@@ -5623,7 +5623,7 @@ metadata:
 data:
   net_cidr:      10.244.0.0/14/23
   svc_cidr:      10.96.0.0/16
-  k8s_apiserver: https://127.0.0.1:6443
+  k8s_apiserver: https://127.0.0.1:7445
   mtu:           "1400"
   host_network_namespace: ovn-host-network
 ---
