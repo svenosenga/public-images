@@ -6688,6 +6688,8 @@ spec:
           privileged: true
         terminationMessagePolicy: FallbackToLogsOnError
         volumeMounts:
+        - mountPath: /host
+          name: host-slash
         - mountPath: /lib/modules
           name: host-modules
           readOnly: true
@@ -6729,6 +6731,10 @@ spec:
               - key: k8s.ovn.org/dpu-host
                 operator: DoesNotExist
       volumes:
+      - name: host-slash
+        hostPath:
+          path: /
+          type: Directory
       - name: host-modules
         hostPath:
           path: /lib/modules
