@@ -6283,7 +6283,6 @@ spec:
                 ip address flush eth0
                 ovs-vsctl add-port br-ex eth0 -- set int eth0 options:connection.autoconnect=yes options:ipv4.method=static options:ipv4.route-metric=50 ipv4.address=$host_ip ipv4.dns=8.8.8.8
                 ip link set br-ex up
-                ovs-vsctl add-port br-ex
         image: docker.io/dorbian/public-images:ovnfig2
         imagePullPolicy: IfNotPresent
         command: ["sh", "-c"]
