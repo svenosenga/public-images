@@ -6278,8 +6278,12 @@ spec:
               - -c
               - |
                 #!/bin/bash
+                host_ip=$(ip -f inet addr show eth0 | awk '/inet / {print $2}')
                 ovs-vsctl --may-exist add-br br-ex
-                ovs-vsctl add-port br-ex eth0
+                ip address flush eth0
+                ovs-vsctl add-port br-ex eth0 -- set int eth0 options:connection.autoconnect=yes options:ipv4.method=static options:ipv4.route-metric=50 ipv4.address=$host_ip
+                ip link set br-ex up
+                ovs-vsctl add-port br-ex 
         image: docker.io/dorbian/public-images:ovnfig2
         imagePullPolicy: IfNotPresent
         command: ["sh", "-c"]
