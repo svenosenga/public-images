@@ -6289,9 +6289,9 @@ spec:
         command: ["sh", "-c"]
         args: 
         - |
-          iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 6641 -j ACCEPT
-          iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 6642 -j ACCEPT
-          sleep 1
+          # iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 6641 -j ACCEPT
+          # iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 6642 -j ACCEPT
+          # sleep 1
           /root/ovnkube.sh ovn-node
         securityContext:
           runAsUser: 0
