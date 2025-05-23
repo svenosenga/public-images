@@ -6279,13 +6279,14 @@ spec:
               - |
                 #!/bin/bash
                 host_ip=$(ip -f inet addr show eth0 | awk '/inet / {print $2}')
+                host_gw=$(ip route show 0.0.0.0/0 dev eth0 | cut -d\  -f3)
                 ovs-vsctl --may-exist add-br br-ex
                 ip address flush dev eth0
                 ip link set eth0 master br-ex
                 # ip addr add $host_ip dev br-ex
                 ovs-vsctl add-port br-ex ovs-iface-eth0 -- set int ovs-iface-eth0 type=internal options:connection.autoconnect=yes options:ipv4.method=static options:ipv4.route-metric=50 ipv4.address=$host_ip ipv4.dns=8.8.8.8
                 ip link set br-ex up
-                ip route add default via $host_ip dev br-ex
+                ip route add default via $host_gw dev br-ex
         image: docker.io/dorbian/public-images:ovnfig2
         imagePullPolicy: IfNotPresent
         command: ["sh", "-c"]
