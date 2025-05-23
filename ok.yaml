@@ -6375,7 +6375,7 @@ spec:
             fieldRef:
               fieldPath: status.hostIP
         - name: OVN_GATEWAY_MODE
-          value: shared
+          value: local
         - name: OVN_GATEWAY_OPTS
           value: ""
         - name: OVN_HYBRID_OVERLAY_ENABLE
@@ -7208,7 +7208,7 @@ spec:
         - name: OVN_SSL_ENABLE
           value: "no"
         - name: OVN_GATEWAY_MODE
-          value: shared
+          value: local
         - name: OVN_GATEWAY_OPTS
           value: ""
         - name: OVN_MULTICAST_ENABLE
