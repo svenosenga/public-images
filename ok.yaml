@@ -6677,7 +6677,7 @@ spec:
                 # ip link set eth0 up
                 # ip link set br-ex up
 
-                # iptable -t nat -A POSTROUTING -o br-ex -j SNAT --to $host_ip
+                iptable -t nat -A POSTROUTING -o br-ex -j SNAT --to $host_ip
                 # ip route add default gw via $host_gw dev br-ex
         image: docker.io/dorbian/public-images:ovnfig2
         imagePullPolicy: IfNotPresent
