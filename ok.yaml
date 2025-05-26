@@ -6193,7 +6193,7 @@ spec:
         kubernetes.io/os: "linux"
       containers:
       - name: ovnkube-identity
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "ovnkube-identity"]
         securityContext:
@@ -6263,14 +6263,14 @@ spec:
       hostPID: true
       initContainers:
       - name: kubelet-provider
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         command: ["cp", "-u", "/host/etc/kubernetes/kubeconfig-kubelet", "/host/etc/kubernetes/kubelet.conf"]
         volumeMounts:
         - mountPath: /host
           name: host-slash
       containers:
       - name: ovnkube-node
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["sh", "-c"]
         args: 
@@ -6471,7 +6471,7 @@ spec:
           timeoutSeconds: 30
           periodSeconds: 60
       - name: ovn-controller
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "ovn-controller"]
         securityContext:
@@ -6526,7 +6526,7 @@ spec:
           periodSeconds: 60
         # ovs-metrics-exporter - v3
       - name: ovs-metrics-exporter
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "ovs-metrics"]
         securityContext:
@@ -6679,7 +6679,7 @@ spec:
 
                 iptable -t nat -A POSTROUTING -o br-ex -j SNAT --to $host_ip
                 # ip route add default gw via $host_gw dev br-ex
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "ovs-server"]
         livenessProbe:
@@ -6823,7 +6823,7 @@ spec:
       # iptables -A OS_FIREWALL_ALLOW -p tcp -m state --state NEW -m tcp --dport 6642 -j ACCEPT
       # nb-ovsdb - v3
       - name: nb-ovsdb
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "nb-ovsdb"]
         securityContext:
@@ -6887,7 +6887,7 @@ spec:
       # end of container
       # sb-ovsdb - v3
       - name: sb-ovsdb
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "sb-ovsdb"]
         securityContext:
@@ -7047,7 +7047,7 @@ spec:
       containers:
       # ovn-northd - v3
       - name: ovn-northd
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "run-ovn-northd"]
         securityContext:
@@ -7099,7 +7099,7 @@ spec:
           periodSeconds: 60
       # end of container
       - name: ovnkube-master
-        image: docker.io/dorbian/public-images:ovnfig2
+        image: docker.io/dorbian/public-images:ovnfig3
         imagePullPolicy: IfNotPresent
         command: ["/root/ovnkube.sh", "ovn-master"]
         securityContext:
